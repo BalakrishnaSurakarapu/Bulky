@@ -79,13 +79,9 @@ namespace BulkyWeb.Controllers
 
             return View();
         }
-        [HttpGet]
-        public IActionResult Save()
-        {
-            return View();
-        }
+       
         [HttpPost]
-        public IActionResult Save(Apiuser model, IFormFile FileUpload)
+        public IActionResult Preview(Apiuser model, IFormFile FileUpload)
         {
             if (!ModelState.IsValid)
                 return View("Index", model);
