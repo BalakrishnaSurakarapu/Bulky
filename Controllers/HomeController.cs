@@ -47,6 +47,11 @@ namespace BulkyWeb.Controllers
             ViewBag.Admins = _userStore.GetUsersByRole("Admin");
             return View();
         }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
 
         [HttpPost]
         public IActionResult Login(Login model)

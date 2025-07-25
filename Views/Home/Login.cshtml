@@ -1,81 +1,52 @@
 ﻿@model Login
-
-<h2>Login</h2>
-
+@{
+    ViewData["Title"] = "Login";
+}
 @if (ViewBag.Error != null)
 {
     <div class="alert alert-danger">@ViewBag.Error</div>
 }
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-primary text-white text-center">
+                <h4 class="mb-0">🔐 Login</h4>
+            </div>
+            <div class="card-body">
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.Error</div>
+                }
 
-<form asp-action="Login" method="post">
-    <div class="form-group">
-        <label>Username</label>
-        <input asp-for="Username" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Password</label>
-        <input asp-for="Password" type="password" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+                <form asp-action="Login" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label">Username</label>
+                        <input asp-for="Username" class="form-control" placeholder="Enter your username" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
 
+                <div class="text-center mt-3">
+                    <span>Don't have an account?</span>
+                    <a asp-action="Register" class="btn btn-link">Register here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <hr />
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
 
-@* <h4>Registered Admins</h4> *@
-@* @if (ViewBag.Admins is List<innodigitls.Models.RegisteredUser> admins && admins.Any()) *@
-@* { *@
-@*     <table class="table table-bordered table-striped"> *@
-@*         <thead> *@
-@*             <tr> *@
-@*                 <th>Username</th> *@
-@*                 <th>Role</th> *@
-@*                 <th>Password</th> *@
-@*             </tr> *@
-@*         </thead> *@
-@*         <tbody> *@
-@*             @foreach (var admin in admins) *@
-@*             { *@
-@*                 <tr> *@
-@*                     <td>@admin.Username</td> *@
-@*                     <td>@admin.Role</td> *@
-@*                     <td>@admin.Password</td> *@
-@*                 </tr> *@
-@*             } *@
-@*         </tbody> *@
-@*     </table> *@
-@* } *@
-@* else *@
-@* { *@
-@*     <p>No Admins registered.</p> *@
-@* } *@
-
-@* <h4>Registered Users</h4> *@
-@* @if (ViewBag.Users is List<innodigitls.Models.RegisteredUser> users && users.Any()) *@
-@* { *@
-@*     <table class="table table-bordered table-striped"> *@
-@*         <thead> *@
-@*             <tr> *@
-@*                 <th>Username</th> *@
-@*                 <th>Role</th> *@
-@*                 <th>Password</th> *@
-@*             </tr> *@
-@*         </thead> *@
-@*         <tbody> *@
-@*             @foreach (var user in users) *@
-@*             { *@
-@*                 <tr> *@
-@*                     <td>@user.Username</td> *@
-@*                     <td>@user.Role</td> *@
-@*                     <td>@user.Password</td> *@
-@*                 </tr> *@
-@*             } *@
-@*         </tbody> *@
-@*     </table> *@
-@* } *@
-@* else *@
-@* { *@
-@*     <p>No Users registered.</p> *@
-@* } *@
 @{
     var allUsers = new List<Register>();
 
@@ -98,17 +69,26 @@
         <thead>
             <tr>
                 <th>Username</th>
-                <th>Role</th>
                 <th>Password</th>
+                <th>Role</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Dob</th>             
             </tr>
         </thead>
         <tbody>
             @foreach (var user in allUsers)
             {
                 <tr>
-                    <td>@user.Username</td>
-                    <td>@user.Role</td>
+                    <td>@user.Username</td>                  
                     <td>@user.Password</td>
+                    <td>@user.Role</td>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Mobile</td>
+                    <td>@user.Dob</td>
+                   
                 </tr>
             }
         </tbody>

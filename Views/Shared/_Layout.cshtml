@@ -16,7 +16,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary  border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-success  border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Balu Web</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -31,14 +31,36 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">
-                                Login (
-                                <span>@ViewBag.Role</span>,
-                                <span>@ViewBag.Username</span>
-                                )
-                            </a>
-                        </li>
+                        @* <li class="nav-item"> *@
+                        @*     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login"> *@
+                        @*         Login ( *@
+                        @*         <span>@ViewBag.Role</span>, *@
+                        @*         <span>@ViewBag.Username</span> *@
+                        @*         ) *@
+                        @*     </a> *@
+                        @* </li> *@
+                        @{
+                            var username = Context.Session.GetString("Username");
+                            var role = Context.Session.GetString("Role");
+                        }
+
+                        @if (!string.IsNullOrEmpty(username))
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-whit" fw-bold" style="cursor: default;">
+                                    Welcome <span>Name:@username Role:@role</span>
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Logout" onclick="clearLocalStorage()">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Comment" asp-action="Index">ApiData</a>
                         </li>
@@ -60,7 +82,7 @@
         @* <partial name="_notifications" /> *@
     </div>
 
-    <footer class="border-top bg-primary footer text-muted">
+    <footer class="border-top bg-success footer text-muted">
         <div class="container">
             Made With<i class="bi bi-balloon-heart-fill">BY .Net Mvc </i>
         </div>
@@ -71,3 +93,10 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script>
+    function clearLocalStorage() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+    }
+</script>
