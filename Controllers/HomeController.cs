@@ -67,6 +67,7 @@ namespace BulkyWeb.Controllers
             }
 
             HttpContext.Session.SetString("Username", user.Username);
+            HttpContext.Session.SetString("Name", user.Name);
             HttpContext.Session.SetString("Role", user.Role);
 
             return RedirectToAction("Index");

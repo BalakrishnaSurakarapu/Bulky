@@ -11,7 +11,7 @@ namespace BulkyWeb.Service
             // Add static Admin
             _users.Add(new Register
             {
-                Name = "Admin User",
+                Name = "Balu",
                 Email = "admin@example.com",
                 Mobile = "1234567890",
                 Dob = new DateTime(1990, 1, 1),
@@ -23,7 +23,7 @@ namespace BulkyWeb.Service
             // Add static User
             _users.Add(new Register
             {
-                Name = "Normal User",
+                Name = "Balu",
                 Email = "user@example.com",
                 Mobile = "9876543210",
                 Dob = new DateTime(1995, 5, 15),
