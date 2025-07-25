@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Payment Result";
+}
+
+<h2>@ViewBag.Message</h2>
+
+@if (ViewBag.Status != null)
+{
+    <form method="post" action="/Payment/DownloadPdf">
+    <div class="card mt-4 p-3 shadow-sm bg-light">
+        <h4>Transaction Details</h4>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Payment ID</th>
+                <td>@ViewBag.PaymentId</td>
+            </tr>
+            <tr>
+                <th>Order ID</th>
+                <td>@ViewBag.OrderId</td>
+            </tr>
+            <tr>
+                <th>Amount Paid</th>
+                <td>₹@ViewBag.Amount</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>@ViewBag.Status</td>
+            </tr>
+            <tr>
+                <th>Payment Method</th>
+                <td>@ViewBag.Method</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>@ViewBag.Email</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>@ViewBag.Contact</td>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <td>
+                    @{
+                        var timestamp = (long)ViewBag.CreatedAt;
+                        var dateTime = DateTimeOffset.FromUnixTimeSeconds(timestamp).LocalDateTime;
+                    }
+                    @dateTime.ToString("dd-MMM-yyyy hh:mm tt")
+                </td>
+            </tr>
+        </table>
+    </div>
+        <button type="submit" class="btn btn-success mt-3">Download PDF Receipt</button>
+    </form>
+}
+
+<a href="/Payment/Index" class="btn btn-secondary mt-3">Go Back</a>

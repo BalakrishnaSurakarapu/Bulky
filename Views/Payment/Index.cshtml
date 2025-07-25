@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Enter Amount";
+}
+
+<h2>Enter Payment Amount</h2>
+
+<form asp-controller="Payment" asp-action="CreateOrder" method="post">
+    <div class="form-group">
+        <label for="amount">Amount (₹):</label>
+        <input type="number" step="1" min="1" name="amount" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Pay Now</button>
+</form>

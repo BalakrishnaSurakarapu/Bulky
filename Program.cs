@@ -1,10 +1,14 @@
 ﻿using BulkyWeb.Data;
+using BulkyWeb.Models;
 using BulkyWeb.Service;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +16,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddHttpClient();
+
+//payment gatways
+//var wkhtmlPath = Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox", "64bit", "libwkhtmltox.dll");
+//if (!System.IO.File.Exists(wkhtmlPath))
+//    throw new Exception("libwkhtmltox.dll not found at " + wkhtmlPath);
+
+var context = new CustomAssemblyLoadContext();
+//context.LoadUnmanagedLibrary(wkhtmlPath);
+builder.Services.Configure<RazorpaySettings>(builder.Configuration.GetSection("Razorpay"));
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
 
 // ✅ 2. JWT Authentication
