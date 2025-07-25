@@ -1,0 +1,13 @@
+﻿@model ApiComments
+
+<h2>Comment Details</h2>
+
+<ul class="list-group">
+    <li class="list-group-item"><strong>ID:</strong> @Model.Id</li>
+    <li class="list-group-item"><strong>Post ID:</strong> @Model.PostId</li>
+    <li class="list-group-item"><strong>Name:</strong> @Model.Name</li>
+    <li class="list-group-item"><strong>Email:</strong> @Model.Email</li>
+    <li class="list-group-item"><strong>Body:</strong> @Model.Body</li>
+</ul>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to List</a>

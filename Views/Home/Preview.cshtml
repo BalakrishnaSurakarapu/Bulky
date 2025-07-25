@@ -1,0 +1,75 @@
+﻿@model Apiuser
+@using System.IO
+@using BulkyWeb.Models
+
+@{
+    ViewData["Title"] = "Submitted Data";
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.Role))
+{
+    <p><strong>Role:</strong> @ViewBag.Role</p>
+}
+<h2>Submitted Data</h2>
+
+<ul class="list-group">
+    <li class="list-group-item"><strong>Name:</strong> @Model.Name</li>
+    <li class="list-group-item"><strong>Email:</strong> @Model.Email</li>
+    <li class="list-group-item"><strong>Mobile:</strong> @Model.Mobile</li>
+    <li class="list-group-item"><strong>Date of Birth:</strong> @Model.Dob.ToShortDateString()</li>
+
+    @{
+        var fileName = ViewBag.FileName as string;
+        string fileUrl = null;
+        string ext = "";
+        string lowerExt = "";
+        bool isImage = false;
+        bool isPdf = false;
+        bool isText = false;
+
+        if (!string.IsNullOrEmpty(fileName))
+        {
+            fileUrl = Url.Content("~/uploads/" + fileName);
+            int dotIndex = fileName.LastIndexOf('.');
+            if (dotIndex != -1 && dotIndex < fileName.Length - 1)
+            {
+                lowerExt = fileName.Substring(dotIndex).ToLowerInvariant();
+            }
+
+            var imageExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp" };
+            isImage = imageExtensions.Contains(lowerExt);
+            isPdf = lowerExt == ".pdf";
+            isText = lowerExt == ".txt" || lowerExt == ".csv";
+        }
+    }
+
+    <li class="list-group-item">
+        <strong>File Uploaded:</strong> @fileName <br />
+        <a href="@fileUrl" download class="btn btn-sm btn-primary mt-2">Download File</a>
+    </li>
+
+    <li class="list-group-item">
+        <strong>Preview:</strong><br />
+        @if (!string.IsNullOrEmpty(fileName))
+        {
+            if (isImage)
+            {
+                <img src="@fileUrl" alt="Image" class="img-thumbnail mt-2" style="max-width: 300px;" />
+            }
+            else if (isPdf || isText)
+            {
+                <iframe src="@fileUrl" width="100%" height="500px" style="border: none;"></iframe>
+            }
+            else
+            {
+                <p>Preview not available for this file type.</p>
+            }
+        }
+        else
+        {
+            <p>No file uploaded.</p>
+        }
+    </li>
+</ul>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to Form</a>

@@ -1,0 +1,8 @@
+﻿<h3>Secure Page</h3>
+<p>Token:</p>
+<pre>@ViewBag.Token</pre>
+
+@if (!string.IsNullOrEmpty(ViewBag.Role))
+{
+    <p><strong>Role:</strong> @ViewBag.Role</p>
+}

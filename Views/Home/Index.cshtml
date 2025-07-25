@@ -1,7 +1,61 @@
-﻿@{
+﻿@model Apiuser
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
+
+
+<h2>User Registration Form</h2>
+
+
+
+<div class="text-center">
+    @* <h1 class="display-4">Welcome @ViewBag.Username!</h1> *@
+
+    @if (!string.IsNullOrEmpty(ViewBag.Role))
+    {
+        <p><strong>Role:</strong> @ViewBag.Role</p>
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.Token))
+    {
+        <p><strong>JWT Token:</strong> @ViewBag.Token</p>
+    }
+</div>
+
+
+<form asp-action="Save" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Mobile"></label>
+        <input asp-for="Mobile" class="form-control" />
+        <span asp-validation-for="Mobile" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Dob"></label>
+        <input asp-for="Dob" type="date" class="form-control" />
+        <span asp-validation-for="Dob" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FileUpload"></label>
+        <input asp-for="FileUpload" type="file" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

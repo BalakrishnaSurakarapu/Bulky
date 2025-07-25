@@ -1,0 +1,28 @@
+﻿@model List<ApiComments>
+
+<h2>Comments List</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Post ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var comment in Model)
+        {
+            <tr>
+                <td>@comment.Id</td>
+                <td>@comment.PostId</td>
+                <td>@comment.Name</td>
+                <td>@comment.Email</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@comment.Id" class="btn btn-info btn-sm">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
